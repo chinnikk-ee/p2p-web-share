@@ -66,7 +66,7 @@ export function Dropzone({ onFile, disabled = false }: DropzoneProps) {
       />
       <motion.span
         animate={dragging ? { y: -6 } : { y: 0 }}
-        className="grid size-16 place-items-center rounded-2xl bg-gradient-to-br from-primary/20 to-violet-500/20 text-primary"
+        className="grid size-16 place-items-center rounded-2xl bg-gradient-to-br from-brand-primary/20 to-brand-hover/20 text-brand-primary"
       >
         <UploadCloud className="size-8" />
       </motion.span>

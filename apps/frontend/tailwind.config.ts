@@ -50,6 +50,14 @@ const config: Config = {
           DEFAULT: 'hsl(var(--card))',
           foreground: 'hsl(var(--card-foreground))',
         },
+        // Theme-switching brand accent (blue in light, orange/amber in dark).
+        brand: {
+          DEFAULT: 'hsl(var(--brand) / <alpha-value>)',
+          primary: 'hsl(var(--brand) / <alpha-value>)',
+          hover: 'hsl(var(--brand-hover) / <alpha-value>)',
+          surface: 'hsl(var(--brand) / 0.1)', // soft container/dropzone tint
+          border: 'hsl(var(--brand) / 0.22)', // subtle matching border
+        },
       },
       borderRadius: {
         xl: 'calc(var(--radius) + 4px)',

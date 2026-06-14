@@ -10,19 +10,26 @@
     --card-foreground: 240 10% 4%;
     --popover: 0 0% 100%;
     --popover-foreground: 240 10% 4%;
-    --primary: 262 83% 58%;
+    --primary: 224 76% 48%; /* trustworthy blue — #1D4ED8 */
     --primary-foreground: 0 0% 100%;
     --secondary: 240 5% 96%;
     --secondary-foreground: 240 6% 10%;
     --muted: 240 5% 96%;
     --muted-foreground: 240 4% 46%;
-    --accent: 262 83% 96%;
-    --accent-foreground: 262 60% 30%;
+    --accent: 224 76% 95%; /* soft blue tint */
+    --accent-foreground: 224 64% 33%;
     --destructive: 0 72% 51%;
     --destructive-foreground: 0 0% 100%;
     --border: 240 6% 90%;
     --input: 240 6% 90%;
-    --ring: 262 83% 58%;
+    --ring: 224 76% 48%;
+
+    /* Brand accent — drives gradients, logo, dropzone. Swaps with theme. */
+    --brand: 224 76% 48%; /* blue-700  #1D4ED8 */
+    --brand-hover: 226 71% 40%; /* blue-800  #1E40AF */
+    --brand-gradient-from: 226 71% 40%; /* strong  — #1E40AF */
+    --brand-gradient-to: 217 91% 60%; /* brighter — blue-500 #3B82F6 */
+
     --radius: 0.75rem;
   }
 
@@ -33,19 +40,25 @@
     --card-foreground: 240 10% 96%;
     --popover: 240 12% 9%;
     --popover-foreground: 240 10% 96%;
-    --primary: 262 83% 66%;
+    --primary: 27 96% 61%; /* vibrant orange — #FB923C */
     --primary-foreground: 240 13% 6%;
     --secondary: 240 8% 16%;
     --secondary-foreground: 240 10% 96%;
     --muted: 240 8% 16%;
     --muted-foreground: 240 5% 65%;
-    --accent: 262 40% 22%;
-    --accent-foreground: 262 80% 90%;
+    --accent: 25 45% 18%; /* deep warm orange tint */
+    --accent-foreground: 30 90% 80%;
     --destructive: 0 72% 56%;
     --destructive-foreground: 0 0% 100%;
     --border: 240 8% 18%;
     --input: 240 8% 20%;
-    --ring: 262 83% 66%;
+    --ring: 27 96% 61%;
+
+    /* Brand accent — energetic orange / amber for dark mode. */
+    --brand: 27 96% 61%; /* orange-400 #FB923C */
+    --brand-hover: 31 97% 72%; /* orange-300 #FDBA74 */
+    --brand-gradient-from: 25 95% 53%; /* strong — orange-500 #F97316 */
+    --brand-gradient-to: 31 97% 72%; /* brighter peach #FDBA74 */
   }
 
   * {
@@ -81,16 +94,22 @@
     @apply border border-white/10 bg-white/80 backdrop-blur-2xl dark:bg-white/[0.06];
   }
 
+  /* Hero gradient: strong → brighter brand shade, auto-swapping per theme. */
   .text-gradient {
-    @apply bg-gradient-to-r from-primary via-violet-500 to-fuchsia-500 bg-clip-text text-transparent;
+    background-image: linear-gradient(
+      to right,
+      hsl(var(--brand-gradient-from)),
+      hsl(var(--brand-gradient-to))
+    );
+    @apply bg-clip-text text-transparent;
   }
 
   /* Decorative animated background blobs. */
   .bg-aurora {
     background-image:
-      radial-gradient(40rem 40rem at 10% 10%, hsl(var(--primary) / 0.18), transparent 60%),
-      radial-gradient(36rem 36rem at 90% 20%, hsl(280 80% 60% / 0.16), transparent 60%),
-      radial-gradient(34rem 34rem at 50% 90%, hsl(220 80% 60% / 0.14), transparent 60%);
+      radial-gradient(40rem 40rem at 10% 10%, hsl(var(--primary) / 0.16), transparent 60%),
+      radial-gradient(36rem 36rem at 90% 20%, hsl(var(--brand-hover) / 0.12), transparent 60%),
+      radial-gradient(34rem 34rem at 50% 90%, hsl(210 70% 55% / 0.1), transparent 60%);
   }
 }
 
