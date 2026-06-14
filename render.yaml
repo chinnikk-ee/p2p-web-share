@@ -1,0 +1,31 @@
+# Render Blueprint — backend signaling server (Docker).
+# Connect this repo on https://dashboard.render.com → "New +" → "Blueprint".
+# Render injects PORT automatically; the server reads process.env.PORT.
+services:
+  - type: web
+    name: p2p-backend
+    runtime: docker
+    repo: # set automatically when you connect the repo, or fill in your GitHub URL
+    dockerfilePath: ./apps/backend/Dockerfile
+    dockerContext: . # build context MUST be the monorepo root (workspace packages)
+    plan: free
+    healthCheckPath: /health
+    autoDeploy: true
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: LOG_LEVEL
+        value: info
+      - key: STUN_URLS
+        value: stun:stun.l.google.com:19302,stun:stun1.l.google.com:19302
+      # Set after the frontend is deployed — your Vercel origin, e.g.
+      # https://p2p-web-share.vercel.app  (no trailing slash, comma-separate multiples)
+      - key: CORS_ORIGIN
+        sync: false
+      # Optional TURN relay for restrictive NATs (leave unset to use STUN only).
+      - key: TURN_URL
+        sync: false
+      - key: TURN_USERNAME
+        sync: false
+      - key: TURN_CREDENTIAL
+        sync: false
