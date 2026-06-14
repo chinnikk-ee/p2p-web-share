@@ -1,0 +1,106 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 240 10% 4%;
+    --card: 0 0% 100%;
+    --card-foreground: 240 10% 4%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 240 10% 4%;
+    --primary: 262 83% 58%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 240 5% 96%;
+    --secondary-foreground: 240 6% 10%;
+    --muted: 240 5% 96%;
+    --muted-foreground: 240 4% 46%;
+    --accent: 262 83% 96%;
+    --accent-foreground: 262 60% 30%;
+    --destructive: 0 72% 51%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 240 6% 90%;
+    --input: 240 6% 90%;
+    --ring: 262 83% 58%;
+    --radius: 0.75rem;
+  }
+
+  .dark {
+    --background: 240 13% 6%;
+    --foreground: 240 10% 96%;
+    --card: 240 12% 9%;
+    --card-foreground: 240 10% 96%;
+    --popover: 240 12% 9%;
+    --popover-foreground: 240 10% 96%;
+    --primary: 262 83% 66%;
+    --primary-foreground: 240 13% 6%;
+    --secondary: 240 8% 16%;
+    --secondary-foreground: 240 10% 96%;
+    --muted: 240 8% 16%;
+    --muted-foreground: 240 5% 65%;
+    --accent: 262 40% 22%;
+    --accent-foreground: 262 80% 90%;
+    --destructive: 0 72% 56%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 240 8% 18%;
+    --input: 240 8% 20%;
+    --ring: 262 83% 66%;
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-feature-settings:
+      'rlig' 1,
+      'calt' 1;
+  }
+
+  /* Respect users who prefer reduced motion. */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
+
+@layer components {
+  /* Glassmorphism surface used across cards and the header. */
+  .glass {
+    @apply border border-white/10 bg-white/60 backdrop-blur-xl dark:bg-white/[0.03];
+  }
+
+  .glass-strong {
+    @apply border border-white/10 bg-white/80 backdrop-blur-2xl dark:bg-white/[0.06];
+  }
+
+  .text-gradient {
+    @apply bg-gradient-to-r from-primary via-violet-500 to-fuchsia-500 bg-clip-text text-transparent;
+  }
+
+  /* Decorative animated background blobs. */
+  .bg-aurora {
+    background-image:
+      radial-gradient(40rem 40rem at 10% 10%, hsl(var(--primary) / 0.18), transparent 60%),
+      radial-gradient(36rem 36rem at 90% 20%, hsl(280 80% 60% / 0.16), transparent 60%),
+      radial-gradient(34rem 34rem at 50% 90%, hsl(220 80% 60% / 0.14), transparent 60%);
+  }
+}
+
+@layer utilities {
+  .scrollbar-thin {
+    scrollbar-width: thin;
+    scrollbar-color: hsl(var(--border)) transparent;
+  }
+
+  .tabular-nums {
+    font-variant-numeric: tabular-nums;
+  }
+}

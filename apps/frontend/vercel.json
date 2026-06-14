@@ -1,0 +1,8 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "framework": "vite",
+  "buildCommand": "cd ../.. && pnpm install --frozen-lockfile && pnpm --filter \"@p2p/frontend...\" run build",
+  "installCommand": "echo skip (install runs in buildCommand from repo root)",
+  "outputDirectory": "dist",
+  "rewrites": [{ "source": "/(.*)", "destination": "/index.html" }]
+}

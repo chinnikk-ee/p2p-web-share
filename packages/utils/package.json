@@ -1,0 +1,35 @@
+{
+  "name": "@p2p/utils",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Pure, isomorphic utilities: AES-GCM, streaming SHA-256, chunking, formatters.",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    }
+  },
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": ["dist"],
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "lint": "eslint .",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "clean": "rimraf dist .turbo"
+  },
+  "dependencies": {
+    "clsx": "^2.1.1",
+    "tailwind-merge": "^2.6.0"
+  },
+  "devDependencies": {
+    "tsup": "^8.3.5",
+    "vitest": "^2.1.8"
+  }
+}

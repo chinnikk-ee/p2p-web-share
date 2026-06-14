@@ -1,0 +1,14 @@
+**/node_modules
+**/dist
+**/build
+**/.turbo
+**/coverage
+**/.vite
+.git
+.github
+**/*.log
+**/.env
+**/.env.*
+!**/.env.example
+docs
+*.md
