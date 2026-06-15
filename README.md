@@ -13,6 +13,26 @@ chunk.
 **Tech stack:** React 19 · TypeScript · Vite · Tailwind CSS · WebRTC data channels · Node.js ·
 Express · Socket.io · pnpm workspaces + Turborepo.
 
+## How it works
+
+1. **Room + link.** The sender drops a file; the app opens a room on the signaling server and builds a
+   one-time link. A fresh AES-256 key is generated in the browser and appended to the link's `#k=`
+   fragment — browsers never send the fragment in HTTP requests, so the server never sees the key.
+2. **Signaling handshake.** When the receiver opens the link, the two browsers exchange WebRTC
+   connection details (SDP offers/answers and ICE candidates) _through_ the Socket.io server. The
+   server only relays these handshake blobs to introduce the peers — nothing else.
+3. **Direct P2P channel.** Once connected, a WebRTC data channel opens **directly between the two
+   browsers** (DTLS-encrypted by WebRTC itself). From here on, the signaling server is out of the loop.
+4. **Chunked, verified transfer.** The sender reads the file in chunks, AES-256-GCM encrypts each one,
+   and sends a SHA-256 hash header followed by the bytes. The receiver decrypts, checks the hash, and
+   stores the chunk. Backpressure prevents the channel from overflowing on fast links.
+5. **Smart storage.** Small files stay in memory; large files stream to **IndexedDB/OPFS** so
+   multi-hundred-MB transfers don't exhaust RAM.
+6. **Verify + auto-download.** After the final chunk, the receiver re-hashes the whole file against the
+   sender's hash. On a match, the file **auto-downloads** — guaranteeing zero corruption.
+7. **Resume.** Saved chunks and room metadata persist locally, so an interrupted transfer (reload or
+   dropped connection) picks up from the last verified chunk instead of restarting.
+
 ## Prerequisites
 
 - Node.js ≥ 20
