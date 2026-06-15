@@ -33,6 +33,28 @@ Express · Socket.io · pnpm workspaces + Turborepo.
 7. **Resume.** Saved chunks and room metadata persist locally, so an interrupted transfer (reload or
    dropped connection) picks up from the last verified chunk instead of restarting.
 
+## Project structure
+
+```
+apps/
+  backend/   Node + Socket.io signaling server (rooms, SDP/ICE relay — never sees files)
+  frontend/  React SPA — all WebRTC, crypto, storage, and UI live here
+packages/
+  types/     Zod schemas + shared protocol / message types (the contract)
+  utils/     AES-256-GCM, streaming SHA-256, chunking, formatters
+  shared/    Constants & tunables (chunk sizes, timeouts, ICE config)
+  ui/        Reusable Tailwind UI primitives
+```
+
+The transfer engine lives in `apps/frontend/src/webrtc/`:
+
+- **`SenderSession` / `ReceiverSession`** — orchestrate a transfer end to end
+- **`FileSender` / `FileReceiver`** — chunk, encrypt/decrypt, hash, and verify
+- **`PeerConnection`** — wraps the WebRTC `RTCPeerConnection` + data channel
+- **`SignalingClient`** — talks to the signaling server over Socket.io
+- **`protocol.ts`** — the on-wire message format
+- **`storage/`** — memory / IndexedDB / OPFS chunk stores + resume metadata
+
 ## Prerequisites
 
 - Node.js ≥ 20
